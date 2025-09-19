@@ -1,58 +1,40 @@
-// TODO: Crear las funciones, objetos y variables indicadas en el enunciado
-
 let presupuesto = 0;
 
 function actualizarPresupuesto(a) {
-    if(a>=0)
-    {
-        presupuesto = a
+    if (a >= 0) {
+        presupuesto = a;
         return presupuesto;
-    }
-    else
-    {
+    } else {
         return -1;
     }
 }
 
 function mostrarPresupuesto() {
-    console.log("Tu presupuesto actual es de X €")
+    return "Tu presupuesto actual es de " + presupuesto + " €";
 }
 
-function CrearGasto() {
-    
-    let gasto = {
+function CrearGasto(descripcion, valor) {
+    this.descripcion = descripcion;
+    this.valor = valor >= 0 ? valor : 0;
 
-        descripcion: descripcion,
-        valor: valor >= 0 ? valor : 0,
-
-        mostrarGasto: function() {
-            console.log(`Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`);
-        },
-
-
-        actualizarDescripcion: function(nuevaDescripcion) {
-            this.descripcion = nuevaDescripcion;
-        },
-
-
-        actualizarValor: function(nuevoValor) {
-            if (nuevoValor >= 0) {
-                this.valor = nuevoValor; 
-            } else {
-                console.log("Error: El valor introducido no es válido.");
-            }
-        }
+    this.mostrarGasto = function() {
+        return "Gasto correspondiente a " + this.descripcion + " con valor " + this.valor + " €";
     };
 
-    return gasto; 
-    
+    this.actualizarDescripcion = function(nuevaDescripcion) {
+        this.descripcion = nuevaDescripcion;
+    };
+
+    this.actualizarValor = function(nuevoValor) {
+        if (nuevoValor >= 0) {
+            this.valor = nuevoValor;
+        } else {
+            console.log("Error: El valor introducido no es válido.");
+        }
+    };
 }
 
-
-// NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
-// Las funciones y objetos deben tener los nombres que se indican en el enunciado
-// Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
-export   {
+export {
     mostrarPresupuesto,
     actualizarPresupuesto,
     CrearGasto
