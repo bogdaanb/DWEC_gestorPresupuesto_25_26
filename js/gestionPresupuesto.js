@@ -39,6 +39,16 @@ function CrearGasto(descripcion, valor, fecha, etiquetas) {
     );
   };
 
+   this.mostrarGasto = function () {
+    return (
+      "Gasto correspondiente a " +
+      this.descripcion +
+      " con valor " +
+      this.valor +
+      " €"
+    );
+  };
+
   this.actualizarDescripcion = function (nuevaDescripcion) {
     this.descripcion = nuevaDescripcion;
   };
