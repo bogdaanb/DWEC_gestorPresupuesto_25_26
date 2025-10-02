@@ -26,6 +26,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
 
 
   this.mostrarGastoCompleto = function () {
+
     return (
       "Gasto correspondiente a " +
       this.descripcion +
@@ -33,11 +34,19 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
       this.valor +
       " €.\n" +
       "Fecha: " +
-      this.fecha +
+      formatearFecha(this.fecha) +
       "\nEtiquetas: "
       + this.gastos
     );
   };
+
+  function formatearFecha(timestamp) {
+
+
+    let fecha = new Date(timestamp);
+    return fecha.toLocaleString();
+
+  }
 
   this.mostrarGasto = function () {
     return (
