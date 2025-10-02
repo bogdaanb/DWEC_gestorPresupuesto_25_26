@@ -18,11 +18,11 @@ function mostrarPresupuesto() {
   return "Tu presupuesto actual es de " + presupuesto + " €";
 }
 
-function CrearGasto(descripcion, valor, fecha, etiquetas) {
+function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   this.descripcion = descripcion;
   this.valor = valor >= 0 ? valor : 0;
-  this.fecha = fecha >= null ? fecha : fechaHoy.toDateString;
-  this.etiquetas = etiquetas >= null ? etiquetas : [];
+  this.fecha = (fecha === undefined || isNaN(Date.parse(fecha))) ? +fechaHoy : Date.parse(fecha);
+  this.etiquetas = etiquetas.length > 0 ? etiquetas : [];
 
 
   this.mostrarGastoCompleto = function () {
@@ -32,14 +32,14 @@ function CrearGasto(descripcion, valor, fecha, etiquetas) {
       " con valor " +
       this.valor +
       " €.\n" +
-      "Fecha: " + 
+      "Fecha: " +
       this.fecha +
       "\nEtiquetas: "
       + this.gastos
     );
   };
 
-   this.mostrarGasto = function () {
+  this.mostrarGasto = function () {
     return (
       "Gasto correspondiente a " +
       this.descripcion +
@@ -61,15 +61,8 @@ function CrearGasto(descripcion, valor, fecha, etiquetas) {
     }
   };
 
-  this.anyadirEtiquetas = function (...nuevasEtiquetas)
-  {
-    for(let i = 0; i < nuevasEtiquetas.length; i++)
-    {
-        if(this.etiquetas.includes(nuevasEtiquetas[i]) != false)
-        {
-            this.etiquetas.push(nuevasEtiquetas[i]);
-        }
-    }
+  this.anyadirEtiquetas = function (...nuevasEtiquetas) {
+    
   }
 }
 
@@ -78,42 +71,38 @@ function listarGastos() {
 }
 
 function anyadirGasto(gasto) {
-    gasto.id = idGasto;
-    idGasto++;
-    gastos.push(gasto);
+  gasto.id = idGasto;
+  idGasto++;
+  gastos.push(gasto);
 }
 
 function borrarGasto(id) {
-    for(let i = 0; i < gastos.length; i++)
-    {
-        if(gastos[i].id == id)
-        {
-            gastos.splice(i, 1)
-        }
-        else if(gastos[i] == null)
-        {
-            return;
-        }
+  for (let i = 0; i < gastos.length; i++) {
+    if (gastos[i].id == id) {
+      gastos.splice(i, 1)
     }
+    else if (gastos[i] == null) {
+      return;
+    }
+  }
 }
 
 function calcularTotalGastos() {
 
-    let sumaGastos = 0;
-    for(let i = 0; i < gastos.length;i++)
-    { 
-        sumaGastos = sumaGastos + gastos[i].valor
-    }
+  let sumaGastos = 0;
+  for (let i = 0; i < gastos.length; i++) {
+    sumaGastos = sumaGastos + gastos[i].valor
+  }
 
-    return sumaGastos;
+  return sumaGastos;
 
 }
 
 function calcularBalance() {
-    let balance;
+  let balance;
 
-    balance = presupuesto - calcularTotalGastos();
-    return balance;
+  balance = presupuesto - calcularTotalGastos();
+  return balance;
 
 }
 
