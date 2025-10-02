@@ -62,7 +62,14 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   };
 
   this.anyadirEtiquetas = function (...nuevasEtiquetas) {
-    
+    for (let i = 0; i < nuevasEtiquetas.length; i++) {
+      if (this.etiquetas.includes(nuevasEtiquetas[i]) == false) {
+        this.etiquetas.push(nuevasEtiquetas[i]);
+      }
+      else {
+        continue;
+      }
+    }
   }
 }
 
