@@ -40,10 +40,14 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     );
   };
 
-
-
-
-
+  this.actualizarFecha = function (fechaAnyadida) {
+    
+    let timestamp = Date.parse(fechaAnyadida);
+    if(isNaN(timestamp) == false)
+    {
+    this.fecha = timestamp;
+    }
+  }
 
   this.mostrarGasto = function () {
     return (
