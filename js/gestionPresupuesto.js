@@ -35,18 +35,15 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
       " €.\n" +
       "Fecha: " +
       formatearFecha(this.fecha) +
-      "\nEtiquetas: "
-      + this.gastos
+      "\nEtiquetas:\n"
+      + formatearEtiquetas(this.etiquetas)
     );
   };
 
-  function formatearFecha(timestamp) {
 
 
-    let fecha = new Date(timestamp);
-    return fecha.toLocaleString();
 
-  }
+
 
   this.mostrarGasto = function () {
     return (
@@ -81,6 +78,19 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     }
   }
 }
+
+
+function formatearEtiquetas(etiquetas) {
+  if (!etiquetas || etiquetas.length === 0) return "";
+  return etiquetas.map(e => "- " + e).join("\n") + "\n";
+}
+
+function formatearFecha(timestamp) {
+  let fecha = new Date(timestamp);
+  return fecha.toLocaleString();
+
+}
+
 
 function listarGastos() {
   return gastos;
