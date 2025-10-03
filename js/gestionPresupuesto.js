@@ -41,11 +41,10 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   };
 
   this.actualizarFecha = function (fechaAnyadida) {
-    
+
     let timestamp = Date.parse(fechaAnyadida);
-    if(isNaN(timestamp) == false)
-    {
-    this.fecha = timestamp;
+    if (isNaN(timestamp) == false) {
+      this.fecha = timestamp;
     }
   }
 
@@ -58,6 +57,18 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
       " €"
     );
   };
+
+  this.borrarEtiquetas = function(...etiquetasABorrar) {
+  for (let i = 0; i < etiquetasABorrar.length; i++) {
+    let index = this.etiquetas.indexOf(etiquetasABorrar[i]);
+    if (index !== -1) {
+      this.etiquetas.splice(index, 1);
+      i--; 
+    }
+  }
+};
+
+
 
   this.actualizarDescripcion = function (nuevaDescripcion) {
     this.descripcion = nuevaDescripcion;
