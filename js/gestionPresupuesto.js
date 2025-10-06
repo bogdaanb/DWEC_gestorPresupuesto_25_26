@@ -91,21 +91,27 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   };
 
   this.obtenerPeriodoAgrupacion = function (periodo) {
-    let d = formatearFecha(this.fecha);
-
-    console.log(d + "👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌")
+    let d = formateartPeriodo(this.fecha);
+    let str = "";
     switch (periodo) {
       case "anyo":
-        d;
+        str = d.slice(0, 4);
         break;
       case "mes":
-        d;
+        str = d.slice(0, 7);
         break;
       case "dia":
-        d;
+        str = d;
         break;
     }
+    return str;
   };
+}
+
+function formateartPeriodo(fechaSinFormato) {
+  let periodo = new Date(fechaSinFormato);
+  return periodo.toISOString().slice(0, 10);
+
 }
 
 function formatearEtiquetas(etiquetas) {
@@ -154,9 +160,9 @@ function calcularBalance() {
   return balance;
 }
 
-function filtrarGastos() {}
+function filtrarGastos() { }
 
-function agruparGastos() {}
+function agruparGastos() { }
 
 export {
   mostrarPresupuesto,
