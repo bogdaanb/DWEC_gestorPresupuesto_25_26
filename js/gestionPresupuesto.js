@@ -21,12 +21,13 @@ function mostrarPresupuesto() {
 function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   this.descripcion = descripcion;
   this.valor = valor >= 0 ? valor : 0;
-  this.fecha = (fecha === undefined || isNaN(Date.parse(fecha))) ? +fechaHoy : Date.parse(fecha);
+  this.fecha =
+    fecha === undefined || isNaN(Date.parse(fecha))
+      ? +fechaHoy
+      : Date.parse(fecha);
   this.etiquetas = etiquetas.length > 0 ? etiquetas : [];
 
-
   this.mostrarGastoCompleto = function () {
-
     return (
       "Gasto correspondiente a " +
       this.descripcion +
@@ -35,18 +36,17 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
       " €.\n" +
       "Fecha: " +
       formatearFecha(this.fecha) +
-      "\nEtiquetas:\n"
-      + formatearEtiquetas(this.etiquetas)
+      "\nEtiquetas:\n" +
+      formatearEtiquetas(this.etiquetas)
     );
   };
 
   this.actualizarFecha = function (fechaAnyadida) {
-
     let timestamp = Date.parse(fechaAnyadida);
     if (isNaN(timestamp) == false) {
       this.fecha = timestamp;
     }
-  }
+  };
 
   this.mostrarGasto = function () {
     return (
@@ -58,17 +58,15 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     );
   };
 
-  this.borrarEtiquetas = function(...etiquetasABorrar) {
-  for (let i = 0; i < etiquetasABorrar.length; i++) {
-    let index = this.etiquetas.indexOf(etiquetasABorrar[i]);
-    if (index !== -1) {
-      this.etiquetas.splice(index, 1);
-      i--; 
+  this.borrarEtiquetas = function (...etiquetasABorrar) {
+    for (let i = 0; i < etiquetasABorrar.length; i++) {
+      let index = this.etiquetas.indexOf(etiquetasABorrar[i]);
+      if (index !== -1) {
+        this.etiquetas.splice(index, 1);
+        i--;
+      }
     }
-  }
-};
-
-
+  };
 
   this.actualizarDescripcion = function (nuevaDescripcion) {
     this.descripcion = nuevaDescripcion;
@@ -86,26 +84,39 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     for (let i = 0; i < nuevasEtiquetas.length; i++) {
       if (this.etiquetas.includes(nuevasEtiquetas[i]) == false) {
         this.etiquetas.push(nuevasEtiquetas[i]);
-      }
-      else {
+      } else {
         continue;
       }
     }
-  }
-}
+  };
 
+  this.obtenerPeriodoAgrupacion = function (periodo) {
+    let d = formatearFecha(this.fecha);
+
+    console.log(d + "👌👌👌👌👌👌👌👌👌👌👌👌👌👌👌")
+    switch (periodo) {
+      case "anyo":
+        d;
+        break;
+      case "mes":
+        d;
+        break;
+      case "dia":
+        d;
+        break;
+    }
+  };
+}
 
 function formatearEtiquetas(etiquetas) {
   if (!etiquetas || etiquetas.length === 0) return "";
-  return etiquetas.map(e => "- " + e).join("\n") + "\n";
+  return etiquetas.map((e) => "- " + e).join("\n") + "\n";
 }
 
 function formatearFecha(timestamp) {
   let fecha = new Date(timestamp);
   return fecha.toLocaleString();
-
 }
-
 
 function listarGastos() {
   return gastos;
@@ -120,23 +131,20 @@ function anyadirGasto(gasto) {
 function borrarGasto(id) {
   for (let i = 0; i < gastos.length; i++) {
     if (gastos[i].id == id) {
-      gastos.splice(i, 1)
-    }
-    else if (gastos[i] == null) {
+      gastos.splice(i, 1);
+    } else if (gastos[i] == null) {
       return;
     }
   }
 }
 
 function calcularTotalGastos() {
-
   let sumaGastos = 0;
   for (let i = 0; i < gastos.length; i++) {
-    sumaGastos = sumaGastos + gastos[i].valor
+    sumaGastos = sumaGastos + gastos[i].valor;
   }
 
   return sumaGastos;
-
 }
 
 function calcularBalance() {
@@ -144,7 +152,21 @@ function calcularBalance() {
 
   balance = presupuesto - calcularTotalGastos();
   return balance;
-
 }
 
-export { mostrarPresupuesto, actualizarPresupuesto, CrearGasto, listarGastos, anyadirGasto, borrarGasto, calcularTotalGastos, calcularBalance };
+function filtrarGastos() {}
+
+function agruparGastos() {}
+
+export {
+  mostrarPresupuesto,
+  actualizarPresupuesto,
+  CrearGasto,
+  listarGastos,
+  anyadirGasto,
+  borrarGasto,
+  calcularTotalGastos,
+  calcularBalance,
+  filtrarGastos,
+  agruparGastos,
+};
