@@ -111,7 +111,6 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
 function formateartPeriodo(fechaSinFormato) {
   let periodo = new Date(fechaSinFormato);
   return periodo.toISOString().slice(0, 10);
-
 }
 
 function formatearEtiquetas(etiquetas) {
@@ -160,9 +159,15 @@ function calcularBalance() {
   return balance;
 }
 
-function filtrarGastos() { }
+function filtrarGastos(filtros) {
+  return gastos.filter((gasto) => {
+    if (filtros.fechaDesde && gasto.fecha < Data.parse(filtros.fechaDesde)) {
+      return false;
+    }
+  });
+}
 
-function agruparGastos() { }
+function agruparGastos() {}
 
 export {
   mostrarPresupuesto,
