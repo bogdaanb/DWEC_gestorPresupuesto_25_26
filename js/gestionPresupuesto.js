@@ -161,9 +161,10 @@ function calcularBalance() {
 
 function filtrarGastos(filtros) {
   return gastos.filter((gasto) => {
-    if (filtros.fechaDesde && gasto.fecha < Data.parse(filtros.fechaDesde)) {
+    if (filtros.fechaDesde && gasto.fecha < Date.parse(filtros.fechaDesde)) {
       return false;
     }
+    return gastos;
   });
 }
 
