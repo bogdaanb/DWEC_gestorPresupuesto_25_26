@@ -164,6 +164,9 @@ function filtrarGastos(filtros) {
     if (filtros.fechaDesde && gasto.fecha < Date.parse(filtros.fechaDesde)) {
       return false;
     }
+    if (filtros.fechaDesde && gasto.fecha > Date.parse(filtros.fechaHasta) ) {
+      return false;
+    }
     return gastos;
   });
 }
