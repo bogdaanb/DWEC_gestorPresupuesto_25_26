@@ -170,6 +170,9 @@ function filtrarGastos(filtros) {
     if (filtros.valorMinimo && gasto.valor < filtros.valorMinimo)  {
       return false;
     }
+    if (filtros.valorMaximo && gasto.valor > filtros.valorMaximo)  {
+      return false;
+    }
     return gastos;
   });
 }
