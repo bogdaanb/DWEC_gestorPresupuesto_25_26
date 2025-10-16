@@ -160,7 +160,21 @@ function calcularBalance() {
 }
 
 function filtrarGastos(filtros) {
+
+  for(let i = 0; i<gastos.length; i++)
+  {
+    gastos[i].descripcion = gastos[i].descripcion.toUpperCase();
+  };
+
+  for(let i = 0; i<filtros.length; i++)
+  {
+    filtros[i].descripcionContiene = filtros[i].descripcionContiene.toUpperCase()
+  };
+
+  
+  
   return gastos.filter((gasto) => {
+
     if (filtros.fechaDesde && gasto.fecha < Date.parse(filtros.fechaDesde)) {
       return false;
     }
@@ -171,6 +185,10 @@ function filtrarGastos(filtros) {
       return false;
     }
     if (filtros.valorMaximo && gasto.valor > filtros.valorMaximo)  {
+      return false;
+    }
+    if(filtros.descripcionContiene == gasto.descripcion || !undefined)
+    {
       return false;
     }
     return gastos;
