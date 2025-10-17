@@ -161,33 +161,31 @@ function calcularBalance() {
 
 function filtrarGastos(filtros) {
 
-  for(let i = 0; i<gastos.length; i++)
-  {
+  for (let i = 0; i < gastos.length; i++) {
     gastos[i].descripcion = gastos[i].descripcion.toUpperCase();
   };
 
-  for(let i = 0; i<filtros.length; i++)
-  {
+  for (let i = 0; i < filtros.length; i++) {
     filtros[i].descripcionContiene = filtros[i].descripcionContiene.toUpperCase()
   };
 
-  
-  
+
+
   return gastos.filter((gasto) => {
 
     if (filtros.fechaDesde && gasto.fecha < Date.parse(filtros.fechaDesde)) {
       return false;
     }
-    if (filtros.fechaHasta && gasto.fecha > Date.parse(filtros.fechaHasta) ) {
+    if (filtros.fechaHasta && gasto.fecha > Date.parse(filtros.fechaHasta)) {
       return false;
     }
-    if (filtros.valorMinimo && gasto.valor < filtros.valorMinimo)  {
+    if (filtros.valorMinimo && gasto.valor < filtros.valorMinimo) {
       return false;
     }
-    if (filtros.valorMaximo && gasto.valor > filtros.valorMaximo)  {
+    if (filtros.valorMaximo && gasto.valor > filtros.valorMaximo) {
       return false;
     }
-      if (filtros.descripcionContiene) {
+    if (filtros.descripcionContiene) {
       let descFiltro = filtros.descripcionContiene.toUpperCase();
       let descGasto = gasto.descripcion.toUpperCase();
       if (!descGasto.includes(descFiltro)) {
@@ -211,7 +209,21 @@ function filtrarGastos(filtros) {
   });
 }
 
-function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {}
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
+  let gastosFiltrados = filtrarGastos({
+    fechaDesde: fechaDesde,
+    fechaHasta: fechaHasta,
+    etiquetasTiene: etiquetas
+  });
+
+  return gastosFiltrados.reduce((acc, gasto) => {
+    let clave = gasto.obtenerPeriodoAgrupacion(periodo);
+    if (!acc[clave]) acc[clave] = 0;
+    acc[clave] += gasto.valor;
+    return acc;
+  }, {});
+}
+
 
 export {
   mostrarPresupuesto,
