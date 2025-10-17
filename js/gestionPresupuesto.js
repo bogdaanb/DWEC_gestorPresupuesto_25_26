@@ -211,7 +211,7 @@ function filtrarGastos(filtros) {
   });
 }
 
-function agruparGastos() {}
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {}
 
 export {
   mostrarPresupuesto,
