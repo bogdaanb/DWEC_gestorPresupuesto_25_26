@@ -178,7 +178,7 @@ function filtrarGastos(filtros) {
     if (filtros.fechaDesde && gasto.fecha < Date.parse(filtros.fechaDesde)) {
       return false;
     }
-    if (filtros.fechaDesde && gasto.fecha > Date.parse(filtros.fechaHasta) ) {
+    if (filtros.fechaHasta && gasto.fecha > Date.parse(filtros.fechaHasta) ) {
       return false;
     }
     if (filtros.valorMinimo && gasto.valor < filtros.valorMinimo)  {
@@ -187,9 +187,12 @@ function filtrarGastos(filtros) {
     if (filtros.valorMaximo && gasto.valor > filtros.valorMaximo)  {
       return false;
     }
-    if(filtros.descripcionContiene == gasto.descripcion || !undefined)
-    {
-      return false;
+      if (filtros.descripcionContiene) {
+      let descFiltro = filtros.descripcionContiene.toUpperCase();
+      let descGasto = gasto.descripcion.toUpperCase();
+      if (!descGasto.includes(descFiltro)) {
+        return false;
+      }
     }
     return gastos;
   });
