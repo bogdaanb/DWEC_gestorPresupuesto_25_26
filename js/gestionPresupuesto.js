@@ -194,6 +194,19 @@ function filtrarGastos(filtros) {
         return false;
       }
     }
+
+    if (filtros.etiquetasTiene && filtros.etiquetasTiene.length > 0) {
+      let coincide = false;
+      for (let i = 0; i < filtros.etiquetasTiene.length; i++) {
+        if (gasto.etiquetas.includes(filtros.etiquetasTiene[i])) {
+          coincide = true;
+          break;
+        }
+      }
+      if (!coincide) {
+        return false;
+      }
+    }
     return gastos;
   });
 }
