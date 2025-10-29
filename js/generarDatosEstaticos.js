@@ -20,3 +20,4 @@ func.anyadirGasto(gasto6);
 
 funcWeb.mostrarDatoEnId('gastos-totales',func.calcularTotalGastos());
 funcWeb.mostrarDatoEnId('balance-total',func.calcularBalance());
+

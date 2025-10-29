@@ -7,7 +7,12 @@ function mostrarDatoEnId(idElemento, valor) {
     
 }
 
-function mostrarGastoWeb(idElemento, gasto) {}
+function mostrarGastoWeb(idElemento, gasto) {
+    let container = document.getElementById(idElemento);
+    let div = container.innerHTML('<div class="gasto">')
+
+
+}
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {}
 
