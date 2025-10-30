@@ -29,7 +29,8 @@ function mostrarGastoWeb(idElemento, ...gasto) {
     divGastoEtiquetas.className = "gasto-etiquetas";
 
     divGastoDescripcion.innerText = arrayGastos[x].descripcion;
-    divGastoFecha.innerText = arrayGastos[x].fecha;
+    let date = new Date(arrayGastos[x].fecha);
+    divGastoFecha.innerText = date.toLocaleDateString('es-SP');
     divGastoValor.innerText = arrayGastos[x].valor;
 
     divGastos.appendChild(divGastoDescripcion);
