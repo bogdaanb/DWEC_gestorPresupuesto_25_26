@@ -23,4 +23,5 @@ funcWeb.mostrarDatoEnId('balance-total',func.calcularBalance());
 funcWeb.mostrarGastoWeb('listado-gastos-completo',func.listarGastos());
 funcWeb.mostrarGastoWeb('listado-gastos-filtrado-1', func.filtrarGastos({fechaDesde: "2021-9-01", fechaHasta: "2021-9-30"}));
 funcWeb.mostrarGastoWeb('listado-gastos-filtrado-2', func.filtrarGastos({valorMinimo: 50}));
+funcWeb.mostrarGastoWeb('listado-gastos-filtrado-3', func.filtrarGastos({valorMinimo: 200, etiquetasTiene: ["seguros"]}));
 
