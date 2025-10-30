@@ -26,3 +26,10 @@ funcWeb.mostrarGastoWeb('listado-gastos-filtrado-2', func.filtrarGastos({valorMi
 funcWeb.mostrarGastoWeb('listado-gastos-filtrado-3', func.filtrarGastos({valorMinimo: 200, etiquetasTiene: ["seguros"]}));
 funcWeb.mostrarGastoWeb('listado-gastos-filtrado-4', func.filtrarGastos({valorMaximo: 50, etiquetasTiene: ["transporte", "comida"]}));
 
+let agrupacionDia = func.agruparGastos("dia"); 
+let agrupacionMes = func.agruparGastos("mes");  
+let agrupacionAnyo = func.agruparGastos("anyo"); 
+
+
+funcWeb.mostrarGastosAgrupadosWeb("agrupacion-dia", agrupacionDia, "dia");
+
