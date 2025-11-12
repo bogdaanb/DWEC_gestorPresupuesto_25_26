@@ -137,20 +137,20 @@ function nuevoGastoWeb() {
 function EditarHandle() {
     this.handleEvent = function (event) {
 
-      let nuevaDescripcion = prompt("Introduzca una descripción", "");
-      let nuevoValor = prompt("Introduzca un valor", 0);
-      let nuevaFecha = prompt("Introduzca una fecha (Formato yyyy-mm-dd)",0);
-      let nuevasEtiquetas = prompt("Introduzca unas etiquetas (separadas por comas)", 0);
+      let nuevaDescripcion = prompt("Introduzca una descripción", this.gasto.descripcion);
+      let nuevoValor = prompt("Introduzca un valor", this.gasto.valor);;
+      let nuevaFecha = prompt("Introduzca una fecha (Formato yyyy-mm-dd)", this.gasto.fecha);
+      let nuevasEtiquetas = prompt("Introduzca unas etiquetas (separadas por comas)", this.gasto.etiquetas);
   
 
       let numValor = Number(nuevoValor);
       let arrEtiquetas = nuevasEtiquetas.split(',');
   
 
-      this.gasto.actualizarDescripcion(nuevaDescripcion);
-      this.gasto.actualizarValor(numValor);
-      this.gasto.actualizarFecha(nuevaFecha);
-      this.gasto.anyadirEtiquetas(...arrEtiquetas);
+    this.gasto.actualizarDescripcion(nuevaDescripcion);
+    this.gasto.actualizarValor(numValor);
+    this.gasto.actualizarFecha(nuevaFecha);
+    this.gasto.anyadirEtiquetas(...arrEtiquetas);
   
       repintar();
     };
