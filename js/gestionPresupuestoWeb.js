@@ -40,6 +40,19 @@ function mostrarGastoWeb(idElemento, ...gasto) {
     divGastos.appendChild(divGastoValor);
     divGastos.appendChild(divGastoEtiquetas);
 
+    let botonEditar = document.createElement("button");
+    botonEditar.type = "button";
+    botonEditar.className = "gasto-editar";
+    botonEditar.innerText = "Editar";
+
+    let handler = new EditarHandle();
+    handler.gasto = arrayGastos[x];
+
+
+    botonEditar.addEventListener("click", handler);
+
+    divGastos.appendChild(botonEditar);
+
     container.append(divGastos);
   }
 
@@ -77,6 +90,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     divDato.appendChild(spanClave);
     divDato.appendChild(spanValor);
     divPrincipal.appendChild(divDato);
+    
     container.appendChild(divPrincipal);
   }
 
@@ -119,6 +133,29 @@ function nuevoGastoWeb() {
     repintar();
 
 }
+
+function EditarHandle() {
+    this.handleEvent = function (event) {
+
+      let nuevaDescripcion = prompt("Introduzca una descripción", "");
+      let nuevoValor = prompt("Introduzca un valor", 0);
+      let nuevaFecha = prompt("Introduzca una fecha (Formato yyyy-mm-dd)",0);
+      let nuevasEtiquetas = prompt("Introduzca unas etiquetas (separadas por comas)", 0);
+  
+
+      let numValor = Number(nuevoValor);
+      let arrEtiquetas = nuevasEtiquetas.split(',');
+  
+
+      this.gasto.actualizarDescripcion(nuevaDescripcion);
+      this.gasto.actualizarValor(numValor);
+      this.gasto.actualizarFecha(nuevaFecha);
+      this.gasto.anyadirEtiquetas(...arrEtiquetas);
+  
+      repintar();
+    };
+  }
+  
 const boton2 = document.getElementById('anyadirgasto');
 boton2.addEventListener("click", nuevoGastoWeb);
 
