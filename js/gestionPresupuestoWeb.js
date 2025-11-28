@@ -153,14 +153,13 @@ function nuevoGastoWeb() {
 function EditarHandle() {
   this.handleEvent = function (event) {
 
-    let fechaFormateada = this.gasto.fecha;
     let date = new Date();
     let nuevaDescripcion = prompt(
       "Introduzca una descripción",
       this.gasto.descripcion
     );
     let nuevoValor = prompt("Introduzca un valor", this.gasto.valor);
-    let nuevaFecha = prompt("Introduzca una fecha (Formato yyyy-mm-dd)",date.toISOString(fechaFormateada).split('T')[0]);
+    let nuevaFecha = prompt("Introduzca una fecha (Formato yyyy-mm-dd)",date.toISOString(this.gasto.fecha).split('T')[0]);
     let nuevasEtiquetas = prompt(
       "Introduzca unas etiquetas (separadas por coma)",
       this.gasto.etiquetas
@@ -191,6 +190,14 @@ function BorrarEtiquetaHandle() {
     repintar();
   };
 }
+
+function nuevoGastoWebFormulario()
+{
+  let plantillaFormulario = document.getElementById("formulario-template").content.cloneNode(true);
+  let formulario = plantillaFormulario.querySelector("form");
+    
+}
+
 
 const boton2 = document.getElementById("anyadirgasto");
 boton2.addEventListener("click", nuevoGastoWeb);
