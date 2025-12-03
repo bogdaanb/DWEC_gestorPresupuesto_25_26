@@ -63,7 +63,6 @@ function mostrarGastoWeb(idElemento, ...gasto) {
     handlerEditarFormulario.gasto = arrayGastos[x];
 
     botonEditarFormulario.addEventListener("click", handlerEditarFormulario);
-    
 
     let handler = new EditarHandle();
     handler.gasto = arrayGastos[x];
@@ -164,14 +163,16 @@ function nuevoGastoWeb() {
 
 function EditarHandle() {
   this.handleEvent = function (event) {
-
     let date = new Date();
     let nuevaDescripcion = prompt(
       "Introduzca una descripción",
       this.gasto.descripcion
     );
     let nuevoValor = prompt("Introduzca un valor", this.gasto.valor);
-    let nuevaFecha = prompt("Introduzca una fecha (Formato yyyy-mm-dd)",date.toISOString(this.gasto.fecha).split('T')[0]);
+    let nuevaFecha = prompt(
+      "Introduzca una fecha (Formato yyyy-mm-dd)",
+      date.toISOString(this.gasto.fecha).split("T")[0]
+    );
     let nuevasEtiquetas = prompt(
       "Introduzca unas etiquetas (separadas por coma)",
       this.gasto.etiquetas
@@ -205,20 +206,23 @@ function BorrarEtiquetaHandle() {
 
 function EditarHandleFormulario() {
   this.handleEvent = function () {
-
     let botonAnyadir = document.getElementById("anyadirgasto-formulario");
     botonAnyadir.disabled = true;
 
-
-    let plantillaFormulario =
-        document.getElementById("formulario-template").content.cloneNode(true);
+    let plantillaFormulario = document
+      .getElementById("formulario-template")
+      .content.cloneNode(true);
 
     let formulario = plantillaFormulario.querySelector("form");
 
-
     formulario.descripcion.value = this.gasto.descripcion;
     formulario.valor.value = this.gasto.valor;
-    formulario.fecha.value = this.gasto.fecha;
+    const d = new Date(this.gasto.fecha);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    formulario.fecha.value = `${yyyy}-${mm}-${dd}`;
+
     formulario.etiquetas.value = this.gasto.etiquetas.join(",");
 
     function SubmitEditarHandler() {
@@ -233,7 +237,7 @@ function EditarHandleFormulario() {
         this.gasto.actualizarDescripcion(desc);
         this.gasto.actualizarValor(val);
         this.gasto.actualizarFecha(fec);
-        this.gasto.etiquetas = []; 
+        this.gasto.etiquetas = [];
         this.gasto.anyadirEtiquetas(...etiq);
 
         repintar();
@@ -254,26 +258,22 @@ function EditarHandleFormulario() {
 
     botonCancelar.addEventListener("click", handlerCancelar);
 
-
     let divControlador = document.getElementById("controlesprincipales");
     divControlador.append(plantillaFormulario);
   };
 }
 
-
 // 🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊
 
 function nuevoGastoWebFormulario() {
-
   let botonAnyadir = document.getElementById("anyadirgasto-formulario");
   botonAnyadir.disabled = true;
 
-
-  let plantillaFormulario =
-      document.getElementById("formulario-template").content.cloneNode(true);
+  let plantillaFormulario = document
+    .getElementById("formulario-template")
+    .content.cloneNode(true);
 
   let formulario = plantillaFormulario.querySelector("form");
-
 
   formulario.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -309,10 +309,6 @@ function CancelarFormHandler() {
     this.botonAnyadir.disabled = false;
   };
 }
-
-
-
-
 
 const boton2 = document.getElementById("anyadirgasto");
 boton2.addEventListener("click", nuevoGastoWeb);
