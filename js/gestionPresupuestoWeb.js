@@ -205,7 +205,10 @@ function BorrarEtiquetaHandle() {
 }
 
 function EditarHandleFormulario() {
-  this.handleEvent = function () {
+  this.handleEvent = function (event) {
+    let boton = event.currentTarget;
+    boton.disabled = true;
+
     let botonAnyadir = document.getElementById("anyadirgasto-formulario");
     botonAnyadir.disabled = true;
 
@@ -214,7 +217,6 @@ function EditarHandleFormulario() {
       .content.cloneNode(true);
 
     let formulario = plantillaFormulario.querySelector("form");
-
     formulario.descripcion.value = this.gasto.descripcion;
     formulario.valor.value = this.gasto.valor;
     const d = new Date(this.gasto.fecha);
@@ -224,6 +226,8 @@ function EditarHandleFormulario() {
     formulario.fecha.value = `${yyyy}-${mm}-${dd}`;
 
     formulario.etiquetas.value = this.gasto.etiquetas.join(",");
+    boton.closest(".gasto").append(formulario);
+
 
     function SubmitEditarHandler() {
       this.handleEvent = function (event) {
@@ -239,10 +243,10 @@ function EditarHandleFormulario() {
         this.gasto.actualizarFecha(fec);
         this.gasto.etiquetas = [];
         this.gasto.anyadirEtiquetas(...etiq);
-
         repintar();
         formulario.remove();
       };
+
     }
 
     let submitHandler = new SubmitEditarHandler();
@@ -306,7 +310,10 @@ function nuevoGastoWebFormulario() {
 function CancelarFormHandler() {
   this.handleEvent = function () {
     this.formulario.remove();
+    let botonEditar = document.getElementsByClassName("gasto-editar-formulario");
+    botonEditar.disabled = false;
     this.botonAnyadir.disabled = false;
+    repintar()
   };
 }
 
