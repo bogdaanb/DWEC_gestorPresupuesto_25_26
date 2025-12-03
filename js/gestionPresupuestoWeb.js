@@ -228,7 +228,6 @@ function EditarHandleFormulario() {
     formulario.etiquetas.value = this.gasto.etiquetas.join(",");
     boton.closest(".gasto").append(formulario);
 
-
     function SubmitEditarHandler() {
       this.handleEvent = function (event) {
         event.preventDefault();
@@ -246,7 +245,6 @@ function EditarHandleFormulario() {
         repintar();
         formulario.remove();
       };
-
     }
 
     let submitHandler = new SubmitEditarHandler();
@@ -259,6 +257,7 @@ function EditarHandleFormulario() {
     let handlerCancelar = new CancelarFormHandler();
     handlerCancelar.formulario = formulario;
     handlerCancelar.botonAnyadir = botonAnyadir;
+    handlerCancelar.botonEditarFormulario = boton;
 
     botonCancelar.addEventListener("click", handlerCancelar);
 
@@ -310,10 +309,14 @@ function nuevoGastoWebFormulario() {
 function CancelarFormHandler() {
   this.handleEvent = function () {
     this.formulario.remove();
-    let botonEditar = document.getElementsByClassName("gasto-editar-formulario");
-    botonEditar.disabled = false;
+
+    // ⭐ SOLO este botón concreto se habilita
+    if (this.botonEditar) {
+      this.botonEditar.disabled = false;
+    }
+
     this.botonAnyadir.disabled = false;
-    repintar()
+    repintar();
   };
 }
 
