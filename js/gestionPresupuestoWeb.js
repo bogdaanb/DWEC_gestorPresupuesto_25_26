@@ -266,8 +266,6 @@ function EditarHandleFormulario() {
   };
 }
 
-// 🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊🩵🩵😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊
-
 function nuevoGastoWebFormulario() {
   let botonAnyadir = document.getElementById("anyadirgasto-formulario");
   botonAnyadir.disabled = true;
@@ -310,7 +308,6 @@ function CancelarFormHandler() {
   this.handleEvent = function () {
     this.formulario.remove();
 
-    // ⭐ SOLO este botón concreto se habilita
     if (this.botonEditar) {
       this.botonEditar.disabled = false;
     }
