@@ -323,4 +323,24 @@ boton2.addEventListener("click", nuevoGastoWeb);
 const botonFormulario = document.getElementById("anyadirgasto-formulario");
 botonFormulario.addEventListener("click", nuevoGastoWebFormulario);
 
+import {
+  filtrarGastos,
+  transformarListadoEtiquetas,
+} from "./gestionPresupuesto.js";
+
+document.getElementById("formulario-filtrado").addEventListener("submit", function (evento) {
+  evento.preventDefault();
+
+    const textoEtiquetas = document.getElementById("formulario-filtrado-etiquetas-tiene").value;
+
+    const etiquetas = transformarListadoEtiquetas(textoEtiquetas);
+
+    const gastosFiltrados = filtrarGastos({
+      etiquetasTiene: etiquetas,
+    });
+
+    console.log(gastosFiltrados)
+    repintar()
+  });
+
 export { mostrarDatoEnId, mostrarGastoWeb, mostrarGastosAgrupadosWeb };

@@ -240,6 +240,16 @@ function parseFecha(fechaStr) {
   return NaN;
 }
 
+
+
+function transformarListadoEtiquetas(cadenaEtiquetas = "") {
+  if (typeof cadenaEtiquetas !== "string") return [];
+
+  return cadenaEtiquetas.split(/[,\.\:;\s]+/).filter(etiqueta => etiqueta.length > 0);
+}
+
+
+
 export {
   mostrarPresupuesto,
   actualizarPresupuesto,
@@ -251,4 +261,5 @@ export {
   calcularBalance,
   filtrarGastos,
   agruparGastos,
+  transformarListadoEtiquetas,
 };
