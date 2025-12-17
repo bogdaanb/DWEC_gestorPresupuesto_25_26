@@ -323,24 +323,37 @@ boton2.addEventListener("click", nuevoGastoWeb);
 const botonFormulario = document.getElementById("anyadirgasto-formulario");
 botonFormulario.addEventListener("click", nuevoGastoWebFormulario);
 
-import {
-  filtrarGastos,
-  transformarListadoEtiquetas,
-} from "./gestionPresupuesto.js";
 
 document.getElementById("formulario-filtrado").addEventListener("submit", function (evento) {
   evento.preventDefault();
 
+    let formDesc = document.getElementById("formulario-filtrado-descripcion").value;
+    let valorMin = document.getElementById("formulario-filtrado-valor-minimo").value;
+    let valorMax = document.getElementById("formulario-filtrado-valor-maximo").value;
+    let fecIni = document.getElementById("formulario-filtrado-fecha-desde").value;
+    let fecFin = document.getElementById("formulario-filtrado-fecha-hasta").value;
     const textoEtiquetas = document.getElementById("formulario-filtrado-etiquetas-tiene").value;
 
-    const etiquetas = transformarListadoEtiquetas(textoEtiquetas);
+    const etiquetas = func.transformarListadoEtiquetas(textoEtiquetas);
 
-    const gastosFiltrados = filtrarGastos({
+    const gastosFiltrados = func.filtrarGastos({
+      fechaDesde: fecIni,
+      fechaHasta: fecFin,
+      valorMinimo: valorMin == "" ? undefined : Number(valorMin),
+      valorMaximo: valorMax == "" ? undefined : Number(valorMax),
+      descripcionContiene: formDesc,
       etiquetasTiene: etiquetas,
     });
 
     console.log(gastosFiltrados)
-    repintar()
+    const listado = document.getElementById("listado-gastos-completo");
+    listado.innerHTML = "";
+    mostrarGastoWeb("listado-gastos-completo", gastosFiltrados);
+    
   });
+
+  repintar();
+
+
 
 export { mostrarDatoEnId, mostrarGastoWeb, mostrarGastosAgrupadosWeb };
