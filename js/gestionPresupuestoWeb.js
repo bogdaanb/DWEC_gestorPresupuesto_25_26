@@ -323,16 +323,29 @@ boton2.addEventListener("click", nuevoGastoWeb);
 const botonFormulario = document.getElementById("anyadirgasto-formulario");
 botonFormulario.addEventListener("click", nuevoGastoWebFormulario);
 
+document
+  .getElementById("formulario-filtrado")
+  .addEventListener("submit", function (evento) {
+    evento.preventDefault();
 
-document.getElementById("formulario-filtrado").addEventListener("submit", function (evento) {
-  evento.preventDefault();
-
-    let formDesc = document.getElementById("formulario-filtrado-descripcion").value;
-    let valorMin = document.getElementById("formulario-filtrado-valor-minimo").value;
-    let valorMax = document.getElementById("formulario-filtrado-valor-maximo").value;
-    let fecIni = document.getElementById("formulario-filtrado-fecha-desde").value;
-    let fecFin = document.getElementById("formulario-filtrado-fecha-hasta").value;
-    const textoEtiquetas = document.getElementById("formulario-filtrado-etiquetas-tiene").value;
+    let formDesc = document.getElementById(
+      "formulario-filtrado-descripcion"
+    ).value;
+    let valorMin = document.getElementById(
+      "formulario-filtrado-valor-minimo"
+    ).value;
+    let valorMax = document.getElementById(
+      "formulario-filtrado-valor-maximo"
+    ).value;
+    let fecIni = document.getElementById(
+      "formulario-filtrado-fecha-desde"
+    ).value;
+    let fecFin = document.getElementById(
+      "formulario-filtrado-fecha-hasta"
+    ).value;
+    const textoEtiquetas = document.getElementById(
+      "formulario-filtrado-etiquetas-tiene"
+    ).value;
 
     const etiquetas = func.transformarListadoEtiquetas(textoEtiquetas);
 
@@ -345,15 +358,32 @@ document.getElementById("formulario-filtrado").addEventListener("submit", functi
       etiquetasTiene: etiquetas,
     });
 
-    console.log(gastosFiltrados)
+    console.log(gastosFiltrados);
     const listado = document.getElementById("listado-gastos-completo");
     listado.innerHTML = "";
     mostrarGastoWeb("listado-gastos-completo", gastosFiltrados);
-    
   });
 
-  repintar();
+repintar();
 
+document.getElementById("guardar-gastos").addEventListener("click", () => {
+  let gastos2 = func.listarGastos();
+  console.log(JSON.stringify(gastos2));
+  localStorage.setItem('GestorGastosDWEC', JSON.stringify(gastos2))
+});
 
+document.getElementById("cargar-gastos").addEventListener("click", () => {
+  if(localStorage.getItem('GestorGastosDWEC') != null)
+  {
+    let gastos3 = JSON.parse(localStorage.getItem('GestorGastosDWEC'));
+    func.cargarGastos(gastos3);
+    repintar();
+  }
+  else{
+    let arrayVacio = [];
+    func.cargarGastos(arrayVacio);
+    repintar();
+  }
+  });
 
 export { mostrarDatoEnId, mostrarGastoWeb, mostrarGastosAgrupadosWeb };
