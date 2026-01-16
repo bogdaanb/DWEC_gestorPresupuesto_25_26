@@ -34,3 +34,7 @@ let agrupacionAnyo = func.agruparGastos("anyo");
 funcWeb.mostrarGastosAgrupadosWeb("agrupacion-dia", agrupacionDia, "dia");
 funcWeb.mostrarGastosAgrupadosWeb("agrupacion-mes", agrupacionMes, "mes");
 funcWeb.mostrarGastosAgrupadosWeb("agrupacion-anyo", agrupacionAnyo, "anyo");
+
+
+let cargarGastosApiBtn = document.getElementById("cargar-gastos-api");
+cargarGastosApiBtn.addEventListener("click", funcWeb.cargarGastosApi);

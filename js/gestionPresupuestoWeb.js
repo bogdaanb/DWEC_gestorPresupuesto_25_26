@@ -369,21 +369,47 @@ repintar();
 document.getElementById("guardar-gastos").addEventListener("click", () => {
   let gastos2 = func.listarGastos();
   console.log(JSON.stringify(gastos2));
-  localStorage.setItem('GestorGastosDWEC', JSON.stringify(gastos2))
+  localStorage.setItem("GestorGastosDWEC", JSON.stringify(gastos2));
 });
 
 document.getElementById("cargar-gastos").addEventListener("click", () => {
-  if(localStorage.getItem('GestorGastosDWEC') != null)
-  {
-    let gastos3 = JSON.parse(localStorage.getItem('GestorGastosDWEC'));
+  if (localStorage.getItem("GestorGastosDWEC") != null) {
+    let gastos3 = JSON.parse(localStorage.getItem("GestorGastosDWEC"));
     func.cargarGastos(gastos3);
     repintar();
-  }
-  else{
+  } else {
     let arrayVacio = [];
     func.cargarGastos(arrayVacio);
     repintar();
   }
-  });
+});
 
-export { mostrarDatoEnId, mostrarGastoWeb, mostrarGastosAgrupadosWeb };
+
+
+async function cargarGastosApi(e) {
+  e.preventDefault();
+  let input_datos = document.getElementById("nombre-usuario").value;
+
+
+
+  try {
+    let response = await fetch(
+      `https://suhhtqjccd.execute-api.eu-west-1.amazonaws.com/latest/${input_datos}`
+    );
+
+    let data = await response.json();
+    console.log(data);
+    func.cargarGastos(data);
+    repintar();
+
+  } catch (error) {
+    console.log("Error DE TRY CATCH DE LA API");
+  }
+}
+
+export {
+  mostrarDatoEnId,
+  mostrarGastoWeb,
+  mostrarGastosAgrupadosWeb,
+  cargarGastosApi,
+};
