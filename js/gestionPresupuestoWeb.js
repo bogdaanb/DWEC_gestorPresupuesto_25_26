@@ -58,6 +58,12 @@ function mostrarGastoWeb(idElemento, ...gasto) {
     botonEditarFormulario.type = "button";
     botonEditarFormulario.className = "gasto-editar-formulario";
     botonEditarFormulario.innerText = "Editar (formulario)";
+    
+    let botonBorrarApi = document.createElement("button");
+    botonBorrarApi.type = "button";
+    botonBorrarApi.className = "gasto-editar-api";
+    botonBorrarApi.innerText = "Borrar (API)";
+
 
     let handlerEditarFormulario = new EditarHandleFormulario();
     handlerEditarFormulario.gasto = arrayGastos[x];
@@ -81,7 +87,7 @@ function mostrarGastoWeb(idElemento, ...gasto) {
     botonBorrar.addEventListener("click", handlerBorrar);
     divGastos.appendChild(botonBorrar);
     divGastos.appendChild(botonEditarFormulario);
-
+    divGastos.appendChild(botonBorrarApi)
     container.append(divGastos);
   }
 
@@ -394,9 +400,9 @@ async function cargarGastosApi(e) {
 
   try {
     let response = await fetch(
-      `https://suhhtqjccd.execute-api.eu-west-1.amazonaws.com/latest/${input_datos}`
+      `https://gestion-presupuesto-api.onrender.com/api/${input_datos}`
     );
-
+    console.log(response)
     let data = await response.json();
     console.log(data);
     func.cargarGastos(data);
