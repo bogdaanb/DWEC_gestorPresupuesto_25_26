@@ -100,8 +100,11 @@ function mostrarGastoWeb(idElemento, ...gasto) {
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
   let container = document.getElementById(idElemento);
+  container.innerHTML = "";
+
   let divPrincipal = document.createElement("div");
   divPrincipal.className = "agrupacion";
+
   let titulo = "";
   if (periodo === "mes") {
     titulo = "Gastos agrupados por mes";
@@ -114,6 +117,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
   let h1 = document.createElement("h1");
   h1.innerText = titulo;
   divPrincipal.appendChild(h1);
+
   for (let periodoClave in agrup) {
     let divDato = document.createElement("div");
     divDato.className = "agrupacion-dato";
@@ -129,9 +133,56 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     divDato.appendChild(spanClave);
     divDato.appendChild(spanValor);
     divPrincipal.appendChild(divDato);
-
-    container.appendChild(divPrincipal);
   }
+
+  container.appendChild(divPrincipal);
+
+  container.style.width = "33%";
+  container.style.display = "inline-block";
+
+  let chart = document.createElement("canvas");
+
+  let unit = "";
+  switch (periodo) {
+    case "anyo":
+      unit = "year";
+      break;
+    case "mes":
+      unit = "month";
+      break;
+    case "dia":
+    default:
+      unit = "day";
+      break;
+  }
+
+  const myChart = new Chart(chart.getContext("2d"), {
+    type: 'bar',
+    data: {
+      datasets: [
+        {
+          label: `Gastos por ${periodo}`,
+          backgroundColor: "#555555",
+          data: agrup
+        }
+      ],
+    },
+    options: {
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: unit
+          }
+        },
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  container.append(chart);
 
   return container;
 }
@@ -145,6 +196,14 @@ function repintar() {
   listado.innerHTML = "";
 
   mostrarGastoWeb("listado-gastos-completo", func.listarGastos());
+
+  let gastosDia = func.agruparGastos("dia");
+  let gastosMes = func.agruparGastos("mes");
+  let gastosAnyo = func.agruparGastos("anyo");
+
+  mostrarGastosAgrupadosWeb("agrupacion-dia", gastosDia, "dia");
+  mostrarGastosAgrupadosWeb("agrupacion-mes", gastosMes, "mes");
+  mostrarGastosAgrupadosWeb("agrupacion-anyo", gastosAnyo, "anyo");
 }
 
 function actualizarPresupuestoWeb() {
